@@ -1,0 +1,21 @@
+name: kemapi
+version: 0.1.0
+authors:
+    - Rishav Sharan <rishav.sharan@gmail.com>
+    
+targets:
+    kemapi:
+        main: src/kemapi.cr
+    pg:
+        github: will/crystal-pg
+    faker:
+        github: askn/faker
+    dotenv:
+        github: gdotdesign/cr-dotenv
+
+dependencies:
+    kemal:
+        github: kemalcr/kemal
+
+crystal: 0.24.2
+license: MIT
