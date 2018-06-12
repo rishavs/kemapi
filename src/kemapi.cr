@@ -21,7 +21,18 @@ module Kemapi
     before_all do |env|
         puts "Setting response content type"
         env.response.content_type = "application/json"
-      end
+    end
+    # default_request
+  # default reply
+    #     case reply.status
+
+    #         3xx: {
+
+    #         }
+    #         401: {
+
+    #         }
+    # end
 
     get "/" do |env|
         # Schema.validate()
@@ -33,6 +44,29 @@ module Kemapi
 
         res
     end
+
+    # get "/test_api" do |env|
+    #     Request = {
+    #         header:
+    #         body: {
+    #             username:         Schema::users.username,
+    #             password_hash:    Schema::users.password.hash
+    #             role:             Schema:company.role
+
+    #         }
+
+    #     }
+    # before_handle = validate_auth
+    # validate.request(Request)
+    #     Handlers = optional. functions that run everytime this request comes.
+    #   after_handle =
+    #     Reply = {
+            # for each status code. if already defined in all_methods, just overwide that.
+
+    #     }
+    
+
+    # end
   
     process = Sentry.config(
         process_name: "kemapi",
