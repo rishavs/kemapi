@@ -1,9 +1,0 @@
-username:
-    type:       string
-    required:   true
-    unique:     true
-    default:    'Bingo'
-
-password_hash:
-    type:       string
-    required:   true
