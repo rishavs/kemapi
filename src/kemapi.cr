@@ -4,15 +4,14 @@ require "dotenv"
 require "pg"
 require "granite/adapter/pg"
 
-require "./models/*"
-
 Dotenv.load
-Granite.settings.database_url = ENV["DATABASE_URL"]
+
+require "./models/*"
 
 module Kemapi
 
-    User.migrator.drop_and_create
-    Post.migrator.drop_and_create
+    # User.migrator.drop_and_create
+    # Post.migrator.drop_and_create
 
     before_all do |env|
         puts "Setting response content type"
@@ -42,14 +41,15 @@ module Kemapi
 
     end
 
-    process = Sentry.config(
+    opts = Sentry.config(
         process_name: "kemapi",
         build_command: "crystal",
         run_command: "./bin/kemapi",
         build_args: ["build", "src/kemapi.cr", "-o", "bin/kemapi"],
-        run_args: ["-p", "4321"])
+        run_args: ["-p", "4321"]
+        )
       
-    Sentry.run(process) do
+    Sentry.run(opts) do
         Kemal.run
     end
 end

@@ -1,2 +1,2 @@
 pg:
-    database: "postgres://adndltsc:6gnbAbCFSu7fCL5Rlaj7DNudnlNdr4zz@stampy.db.elephantsql.com:5432/adndltsc"
+    database: "${DATABASE_URL}"
