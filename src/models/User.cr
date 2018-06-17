@@ -7,7 +7,7 @@ module Kemapi
         
         timestamps
 
-        # validate_uniqueness :username
+        validate_uniqueness :username
         validate_min_length :username, 3
         validate_max_length :username, 255
 
