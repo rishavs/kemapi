@@ -56,7 +56,7 @@ module Kemapi
         user = User.find_by(username: uname)
         pass_hash = Crypto::Bcrypt::Password.create(pass).to_s
 
-        if user && user.password_hash.to_s == pass.to_s
+        if user && Crypto::Bcrypt::Password.new(user.password_hash.not_nil!) == pass
             puts "The password matches"
             {   "status": "success",
                 "message": "Password was succesfully verified"
