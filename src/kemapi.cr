@@ -1,5 +1,5 @@
 require "kemal"
-# require "sentry-run"
+require "sentry-run"
 require "dotenv"
 require "pg"
 require "granite/adapter/pg"
@@ -30,17 +30,17 @@ module Kemapi
 
     # end
     
-    # opts = Sentry.config(
-    #     process_name: "kemapi",
-    #     build_command: "crystal",
-    #     run_command: "./bin/kemapi",
-    #     build_args: ["build", "src/kemapi.cr", "-o", "bin/kemapi"],
-    #     run_args: ["-p", "4321"]
-    #     )
+    opts = Sentry.config(
+        process_name: "kemapi",
+        build_command: "crystal",
+        run_command: "./bin/kemapi",
+        build_args: ["build", "src/kemapi.cr", "-o", "bin/kemapi"],
+        run_args: ["-p", "4321"]
+        )
       
-    # Sentry.run(opts) do
-    #     Kemal.run
-    # end
+    Sentry.run(opts) do
+        Kemal.run
+    end
 
-    Kemal.run
+    # Kemal.run
 end

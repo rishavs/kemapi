@@ -18,6 +18,9 @@ dependencies:
 development_dependencies:
     faker:
         github: askn/faker
+    sentry-run:
+        github: faustinoaq/sentry-run
+        branch: crystal_0.25
 
 targets:
     kemapi:
