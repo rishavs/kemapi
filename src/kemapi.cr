@@ -20,15 +20,6 @@ module Kemapi
 
     # User.migrator.drop_and_create
     # Post.migrator.drop_and_create
-
-    # get "/" do |env|
-
-    #     {
-    #         status: "success",
-    #         data:   "Hello World"
-    #     }.to_json
-
-    # end
     
     opts = Sentry.config(
         process_name: "kemapi",
@@ -36,11 +27,10 @@ module Kemapi
         run_command: "./bin/kemapi",
         build_args: ["build", "src/kemapi.cr", "-o", "bin/kemapi"],
         run_args: ["-p", "4321"]
-        )
+    )
       
     Sentry.run(opts) do
         Kemal.run
     end
-
     # Kemal.run
 end
