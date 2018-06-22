@@ -13,7 +13,9 @@ dependencies:
         github: amberframework/granite
     dotenv:
         github: gdotdesign/cr-dotenv
-
+    jwt:
+        github: crystal-community/jwt
+        
 development_dependencies:
     faker:
         github: askn/faker

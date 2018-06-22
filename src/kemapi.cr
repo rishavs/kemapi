@@ -4,10 +4,12 @@ require "dotenv"
 require "pg"
 require "granite/adapter/pg"
 require "crypto/bcrypt/password"
+require "uuid"
+require "jwt"
 
 puts "Setting up the app ..."
 
-Dotenv.load
+Dotenv.load!
 
 puts "Initializing Database"
 

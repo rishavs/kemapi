@@ -20,7 +20,7 @@ module Kemapi::Actions
             else
                 {   "status": "success",
                     "message": "User was inserted into the database",
-                    "data": {"id": new_user.id, "username": new_user.username}
+                    "data": {"unqid": new_user.unqid, "username": new_user.username}
                 }.to_json
             end
 
@@ -31,12 +31,17 @@ module Kemapi::Actions
             pass = env.params.json["password"].as(String)
 
             user = User.find_by(username: uname)
+
             pass_hash = Crypto::Bcrypt::Password.create(pass).to_s
 
             if user && Crypto::Bcrypt::Password.new(user.password_hash.not_nil!) == pass
                 puts "The password matches"
+
+                pp user
+                token = generate_jwt_token(user.unqid, user.username)
                 {   "status": "success",
-                    "message": "Password was succesfully verified"
+                    "message": "Password was succesfully verified",
+                    "data": token
                 }.to_json
             else
                 puts "The password doesnt matches"
@@ -46,6 +51,16 @@ module Kemapi::Actions
             end
         end
 
+        def self.generate_jwt_token (uid, uname)
+            exp = Time.now.epoch + 6000000
+            payload = { "unqid" => uid, "username" => uname, "exp" => exp }
+            token = JWT.encode(payload, ENV["SECRET_JWT"], "HS256")
+        end
 
+        def self.parse_jwt_token (token)
+            payload, header = JWT.decode(token, ENV["SECRET_JWT"], "HS256")
+
+            user = { "unqid" => payload["unqid"], "username" => payload["uname"]}
+        end
     end
 end

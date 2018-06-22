@@ -12,10 +12,10 @@ module Kemapi
         Actions::Auth.login (env)
     end
 
-    options "/api/*" do |env|
-        env.response.headers["Access-Control-Allow-Origin"] = "*"
-        env.response.headers["Content-Type"] = "application/json"
-    end
+    # options "/api/auth/login" do |env|
+    #     env.response.headers["Access-Control-Allow-Origin"] = "*"
+    #     env.response.headers["Content-Type"] = "application/json"
+    # end
 
 
     get "/api/users/" do |env|
@@ -23,7 +23,9 @@ module Kemapi
     
     end
 
-
+    post "/api/posts/" do |env|
+        Actions::Posts.create(env)
+    end
 
 
     # ------------------------------------------------
