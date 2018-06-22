@@ -60,7 +60,7 @@ module Kemapi::Actions
         def self.parse_jwt_token (token)
             payload, header = JWT.decode(token, ENV["SECRET_JWT"], "HS256")
 
-            user = { "unqid" => payload["unqid"], "username" => payload["uname"]}
+            user = { "unqid" => payload["unqid"], "username" => payload["username"]}
         end
     end
 end

@@ -5,3 +5,4 @@
 shard.lock
 sentry.lock
 .env
+.env

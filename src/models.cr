@@ -12,13 +12,13 @@ module Kemapi
         field thumb :   String
         timestamps
 
-        before_create :assign_unquid
-        def assign_uid
+        before_create :assign_unqid
+        def assign_unqid
             @unqid = UUID.random.to_s
         end
         
         validate_uniqueness :unqid
-        validate_min_length :title, 10
+        validate_min_length :title, 3
         validate_max_length :title, 255
 
     end
