@@ -3,7 +3,7 @@ module Kemapi::Actions
         def self.create (env)
             post = Post.new
 
-            auth_token = env.request.headers["Authorization"]
+            auth_token = env.request.headers["Authorization"].lchop("Bearer ")
             author = Actions::Auth.parse_jwt_token(auth_token)
 
             pp "author is"
@@ -33,6 +33,31 @@ module Kemapi::Actions
                 {   "status": "success",
                     "message": "Post was inserted into the database",
                     "data": {"unqid": post.unqid, "title": post.title}
+                }.to_json
+            end
+
+        end
+
+        def self.list(env)
+            # auth_token = env.request.headers["Authorization"].lchop("Bearer ")
+            # author = Actions::Auth.parse_jwt_token(auth_token)
+
+            # pp "author is"
+            # pp author
+
+            posts = Post.all("ORDER BY created_at DESC")
+            if posts
+                posts.each do |post|
+                    puts post.title
+                end
+    
+                {   "status": "success",
+                    "data": posts
+                }.to_json
+    
+            else 
+                {   "status": "success",
+                    "message":   "No posts so far"
                 }.to_json
             end
 

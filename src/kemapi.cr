@@ -13,6 +13,7 @@ Dotenv.load!
 
 puts "Initializing Database"
 
+require "./errors.cr"
 require "./models.cr"
 require "./actions/*"
 
@@ -23,6 +24,10 @@ module Kemapi
 
     # User.migrator.drop_and_create
     # Post.migrator.drop_and_create
-
-    Kemal.run
+    begin
+        Kemal.run
+    rescue ex
+        pp " Yo dis be main exception"
+        pp ex.message
+    end
 end
