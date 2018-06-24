@@ -1,41 +1,48 @@
 module Kemapi::Actions
     class Posts
         def self.create (env)
-            post = Post.new
-
-            auth_token = env.request.headers["Authorization"].lchop("Bearer ")
-            author = Actions::Auth.parse_jwt_token(auth_token)
-
-            pp "author is"
-            pp author
-
-            post.title          = env.params.json["title"].as(String)
-            post.content        = env.params.json["content"].as(String)
-            post.link           = env.params.json["link"].as(String)
-            post.thumb          = env.params.json["thumb"].as(String)
-            post.author         = author["username"].to_s
-
-            post.save
-
-            if post.errors.size > 0
-                pp post.errors
+            begin
+                post = Post.new
+                auth_token = env.request.headers["Authorization"].lchop("Bearer ")
+                author = Actions::Auth.parse_jwt_token(auth_token)
+                post.title          = env.params.json["title"].as(String)
+                post.content        = env.params.json["content"].as(String)
+                post.link           = env.params.json["link"].as(String)
+                post.thumb          = env.params.json["thumb"].as(String)
+                post.author         = author["username"].to_s
+                post.save
+            rescue ex : JSON::ParseException | KeyError
+                pp ex.message
+                err_content = Errors::Content.badrequest
+                err_content["details"] = ex.message.to_s
+                env.response.status_code = 400
+                err_content.to_json
+            rescue ex : TypeCastError 
+                pp ex.message
+                err_content = Errors::Content.badrequest
+                err_content["details"] = ex.message.to_s
                 env.response.status_code = 422
-
-                {   "status": "error",
-                    "message": "ERROR: 422 Unprocessable Entity",
-                    "details": post.errors[0].field.to_s + " " + post.errors[0].message.to_s
-                }.to_json
+                err_content.to_json
+            rescue ex
+                pp ex
+                err_content = Errors::Content.badrequest
+                err_content["details"] = ex.message.to_s
+                env.response.status_code = 500
+                err_content.to_json
             else
-                
-                pp "added post"
-                pp post
-                
-                {   "status": "success",
-                    "message": "Post was inserted into the database",
-                    "data": {"unqid": post.unqid, "title": post.title}
-                }.to_json
+                if post.errors.size > 0
+                    err_content = Errors::Content.badrequest
+                    err_content["details"] = post.errors[0].field.to_s + " " + post.errors[0].message.to_s
+                    env.response.status_code = 422
+                    err_content.to_json
+                else
+                    pp "added post"
+                    {   "status": "success",
+                        "message": "Post was inserted into the database",
+                        "data": {"unqid": post.unqid, "title": post.title}
+                    }.to_json
+                end
             end
-
         end
 
         def self.list(env)

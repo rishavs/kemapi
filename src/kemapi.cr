@@ -24,10 +24,8 @@ module Kemapi
 
     # User.migrator.drop_and_create
     # Post.migrator.drop_and_create
-    begin
-        Kemal.run
-    rescue ex
-        pp " Yo dis be main exception"
-        pp ex.message
-    end
+
+    # error 422 {|env, exception| exception.as(Kemapi::UnprocessableEntityException).content }
+
+    Kemal.run
 end
