@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/vendor/css/bootstrap/4.1.1/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/app.css">
-  </head>
-  <body>
-    <%-= render "src/views/shared/nav.ecr" %>
-    <%-= render "src/views/shared/searchform.ecr" %>
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Digglu</title>
+        <meta name="description" content="Because the time you enjoyed wasting wasn't wasted!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%-= content %>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <%-= render "src/views/components/Navbar.ecr" %>
 
-    <hr />
-    <div class="container">
-      <footer>
-        <p><a href="https://github.com/t-richards/vulnsearch">Vulnsearch</a> is free software licensed under the <a href="https://github.com/t-richards/vulnsearch/blob/master/LICENSE">MIT License</a>.</p>
-        <p>Copyright &copy; <%= Time.now.year %> <a href="https://tomrichards.net/">Tom Richards</a></p>
-      </footer>
-    </div>
-  </body>
+        <div id = "home_page" class="ui main container pageExit">
+            <%-= render "src/views/components/Message.ecr" %>
+            <%-= content %>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.js"></script>
+        <script src="main.js"></script>   
+    </body>
 </html>
+
+
