@@ -16,10 +16,21 @@ module Kemapi
         render "src/views/pages/Register.ecr", "src/views/Layout.ecr"
     end
     post "/controllers/register" do |env|
-        pp env
-        username = env.params.body["username"].as(String)
-        password = env.params.body["password"].as(String)
-        "#{username} has password #{password}"
+        # pp env
+        # username = env.params.body["username"].as(String)
+        # password = env.params.body["password"].as(String)
+        # "#{username} has password #{password}"
+        res = Actions::Auth.register (env)
+        pp res
+        if res["status"] == "error" 
+            env.redirect "/register"
+        else
+            env.redirect "/welcome"
+        end
+    end
+
+    get "/welcome" do
+        render "src/views/pages/Welcome.ecr", "src/views/Layout.ecr"
     end
 
     get "/login" do

@@ -1,6 +1,8 @@
 <div class="ui message">
-  <div class="header">
-    The message header goes here
-  </div>
-  <p>The message content goes here</p>
+    <%- if res["status"] == "error" -%>
+    <div class="header">
+        There be some gragons
+    </div>
+    <p> <%- res["message"] -%> </p>"
+    <%- end -%>
 </div>
