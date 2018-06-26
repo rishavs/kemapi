@@ -9,6 +9,7 @@ module Kemapi
         render "src/views/pages/Home.ecr", "src/views/Layout.ecr"
     end
     get "/about" do
+        data = {"ongo": "bongo"}.to_json
         render "src/views/pages/About.ecr", "src/views/Layout.ecr"
     end
     get "/register" do

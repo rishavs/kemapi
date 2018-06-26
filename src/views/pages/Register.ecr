@@ -1,5 +1,5 @@
 <article id="register_page">
-    <form class="ui form" id="register_form" action="/controllers/register" method="post" onsubmit="set_password_field">
+    <form class="ui form" id="register_form" action="/controllers/register" method="post">
         <div class="field">
             <label>Username</label>
             <input type="text" name="username" id="username" placeholder="Username" />
@@ -8,7 +8,7 @@
             <label>Password</label>
             <div class="ui icon input">
                 <input type="password" name="password" id="password" placeholder="Password" />
-                <i class="eye slash outline link icon" id="toggle_password" onclick="toggle_password()"></i>
+                <i class="circular eye slash outline link icon" id="toggle_password" onclick="toggle_password()"></i>
             </div>
         </div>
 
@@ -20,18 +20,18 @@
 
 <script>
 
-toggle_password() => {
+const toggle_password = () => {
     var p = document.getElementById("password");
     var tp = document.getElementById("toggle_password");
     if (p.type === "password") {
         p.type = "text";
-        tp.classList.remove("eye", "slash", "outline", "link", "icon")
-        tp.classList.add("eye", "link", "icon")
+        tp.classList.remove("circular", "eye", "slash", "outline", "link", "icon")
+        tp.classList.add("circular", "eye", "link", "icon")
         
     } else {
         p.type = "password";
-        tp.classList.remove("eye", "link", "icon")
-        tp.classList.add("eye", "slash", "outline", "link", "icon")
+        tp.classList.remove("circular", "eye", "link", "icon")
+        tp.classList.add("circular", "eye", "slash", "outline", "link", "icon")
     }
 } 
 </script>
