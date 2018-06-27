@@ -1,10 +1,10 @@
 module Kemapi
 
-    # get "/" do |env|
-    #     # {status: "success", data: "Hello World"}.to_json
-    #     err_content = {"status" => "error", "message" => "ERROR: 422 Unprocessable Entity", "details" => "cccc"}
-    #     halt env, status_code: 403, response: err_content.to_json
-    # end
+    res = {
+        "status" => "none",
+        "message" => "none"
+    }
+
     get "/" do
         render "src/views/pages/Home.ecr", "src/views/Layout.ecr"
     end
@@ -15,13 +15,13 @@ module Kemapi
     get "/register" do
         render "src/views/pages/Register.ecr", "src/views/Layout.ecr"
     end
-    post "/controllers/register" do |env|
+    post "/register" do |env|
         res = Actions::Auth.register (env)
-        pp res
         if res["status"] == "error" 
-            env.redirect "/register"
+            render "src/views/pages/Register.ecr", "src/views/Layout.ecr"
         else
-            env.redirect "/welcome"
+            pp res
+            render "src/views/pages/Welcome.ecr", "src/views/Layout.ecr"
         end
     end
 
@@ -33,43 +33,20 @@ module Kemapi
         render "src/views/pages/Login.ecr", "src/views/Layout.ecr"
     end
 
-      
-    # post "/api/auth/register/" do |env|
-    #     Actions::Auth.register (env)
-    # end
-
-    # post "/api/auth/login" do |env|
-    #     Actions::Auth.login (env)
-    # end
-
-    # options "/api/auth/login" do |env|
-    #     env.response.headers["Access-Control-Allow-Origin"] = "*"
-    #     env.response.headers["Content-Type"] = "application/json"
-    # end
-
-
-    # get "/api/users/" do |env|
-    #     Actions::Users.list(env)
-    
-    # end
-
-    # post "/api/posts/" do |env|
-    #     Actions::Posts.create(env)
-    # end
-
-    # get "/api/posts/" do |env|
-    #     Actions::Posts.list(env)
-    # end
-
-
     # ------------------------------------------------
     #   Universal handlers
     # ------------------------------------------------
 
-    # before_all do |env|
-    #     puts ""
-    #     # env.response.content_type = "application/json"
-    # end
+    before_all do |env|
+        puts ""
+        
+        # reset the response object on every route change
+        res = {
+            "status" => "none",
+            "message" => "none"
+        }
+
+    end
 
     # after_all do |env|
     #     puts ""
