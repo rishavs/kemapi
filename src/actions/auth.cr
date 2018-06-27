@@ -6,8 +6,7 @@ module Kemapi::Actions
             begin
                 new_user = User.new
                 new_user.username = env.params.body["username"].as(String)
-                pass = env.params.body["password"].as(String)
-                new_user.password_hash = Crypto::Bcrypt::Password.create(pass).to_s
+                new_user.password_hash = env.params.body["password"].as(String)
                 new_user.save
             rescue ex
                 pp ex

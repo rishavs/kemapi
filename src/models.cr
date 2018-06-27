@@ -16,7 +16,7 @@ module Kemapi
         def assign_unqid
             @unqid = UUID.random.to_s
         end
-        
+
         validate_uniqueness :unqid
         validate_min_length :title, 3
         validate_max_length :title, 255
@@ -37,13 +37,15 @@ module Kemapi
             @unqid = UUID.random.to_s
         end
 
+        before_create :hash_pass
+        def hash_pass
+            @password_hash = Crypto::Bcrypt::Password.create(password_hash).to_s
+        end
+        
         validate_uniqueness :unqid
         validate_uniqueness :username
         validate_min_length :username, 3
         validate_max_length :username, 255
-
-        validate_min_length :password_hash, 60
-        validate_max_length :password_hash, 60
 
     end
 end
