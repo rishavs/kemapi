@@ -27,9 +27,9 @@ module Kemapi
 
         adapter pg
 
-        field unqid :           String
-        field username :        String
-        field password_hash :   String
+        field unqid :       String
+        field username :    String
+        field password :    String
         timestamps
 
         before_create :assign_unqid
@@ -39,13 +39,14 @@ module Kemapi
 
         before_create :hash_pass
         def hash_pass
-            @password_hash = Crypto::Bcrypt::Password.create(password_hash).to_s
+            @password = Crypto::Bcrypt::Password.create(password)
         end
         
         validate_uniqueness :unqid
         validate_uniqueness :username
         validate_min_length :username, 3
         validate_max_length :username, 255
+        validate_not_nil    :password
 
     end
 end

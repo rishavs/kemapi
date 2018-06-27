@@ -6,7 +6,7 @@ module Kemapi::Actions
             begin
                 new_user = User.new
                 new_user.username = env.params.body["username"].as(String)
-                new_user.password_hash = env.params.body["password"].as(String)
+                new_user.password = env.params.body["password"].as(String)
                 new_user.save
             rescue ex
                 pp ex
@@ -56,7 +56,6 @@ module Kemapi::Actions
                 env.response.status_code = 500
                 err_content.to_json
             else
-                pass_hash = Crypto::Bcrypt::Password.create(pass).to_s
                 if user && Crypto::Bcrypt::Password.new(user.password_hash.not_nil!) == pass
                     puts "The password matches"
                     token = generate_jwt_token(user.unqid, user.username)

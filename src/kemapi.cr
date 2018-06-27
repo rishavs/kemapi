@@ -22,8 +22,8 @@ require "./handlers.cr"
 
 module Kemapi
 
-    # User.migrator.drop_and_create
-    # Post.migrator.drop_and_create
+    User.migrator.drop_and_create
+    Post.migrator.drop_and_create
 
     # error 422 {|env, exception| exception.as(Kemapi::UnprocessableEntityException).content }
 
